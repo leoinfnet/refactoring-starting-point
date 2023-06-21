@@ -10,8 +10,15 @@ public class Cliente {
     public String getNome() {
         return nome;
     }
-    public void adicionarLocacao(Locacao locacao){
+    public ErroLocacao adicionarLocacao(Locacao locacao){
+        if(locacoes.stream().filter(l -> l.getFilme().getCodigoPreco() == 1).count() >= 1){
+            return ErroLocacao.QUANTIDADE_LANCAMENTOS_ACIMA_PERMITIDO;
+        }
+        if(locacoes.size() > 5){
+            return ErroLocacao.QUANTIDADE_ALUGUEIS_ACIMA_PERMITIDO;
+        }
         this.locacoes.add(locacao);
+        return ErroLocacao.SUCESSO;
     }
     public void setNome(String nome) {
         this.nome = nome;
